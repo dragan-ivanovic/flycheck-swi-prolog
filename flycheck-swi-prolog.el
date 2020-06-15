@@ -96,7 +96,7 @@
 
 (defun flycheck-swi-prolog-parse-messages (output checker buffer)
   "Parse the checker OUTPUT into a list of messages.
-Arguments CHECKER and BUFFER are not used."
+Additional arguments are CHECKER and BUFFER."
   (let ((result nil)
 	(i 0))
     (while (string-match +flycheck-swi-prolog-start-marker+ output i)
@@ -163,5 +163,4 @@ Arguments CHECKER and BUFFER are not used."
 (provide 'flycheck-swi-prolog)
 
 ;;; flycheck-swi-prolog.el ends here
-
 
