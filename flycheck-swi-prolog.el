@@ -41,7 +41,7 @@
 ;;
 ;; - Emacs 26
 ;; - Flycheck 20200610.1809
-;; - swi 8.2.0
+;; - SWI Prolog 8.2.0
 
 ;;; Code:
 
@@ -75,7 +75,7 @@
 (defconst +flycheck-swi-prolog-cont-marker+
   (rx line-start (group-n 1 (or "ERROR" "Warning")) ":"
       blank (one-or-more blank)
-      (group-n 5 (zero-or-more not-newline)) ;; Message
+      (group-n 2 (zero-or-more not-newline)) ;; Message
       line-end)
   "Matches message continuation.")
 
@@ -129,11 +129,11 @@ Additional arguments are CHECKER and BUFFER."
 		      (= (1+ i) (match-beginning 0))
 		      (string= (match-string 1 output) marker))
 	    (setq i (match-end 0))
-	    (when (match-beginning 5)
+	    (when (match-beginning 2)
 	      (setq message
 		    (if message
-			(concat message "\n" (match-string 5 output))
-		      (match-string 5 output))))))
+			(concat message "\n" (match-string 2 output))
+		      (match-string 2 output))))))
 	;; If line number is nil, look for the module declaration.
 	(unless line-number
 	  (with-current-buffer (get-buffer-create buffer)
@@ -153,6 +153,7 @@ Additional arguments are CHECKER and BUFFER."
 						:checker checker))))))
     result))
 
+;;###autoload
 (flycheck-define-checker
  prolog
  "A Prolog Syntax Checker using SWI Prolog Compiler."
