@@ -1,6 +1,6 @@
 ;;; flycheck-swi-prolog --- Flycheck SWI Prolog checker
 
-;; Copyright (C) 2020 Dragan Ivanovic
+;; Copyright (C) 2020 Dragan Ivanović
 
 ;; MIT Licence
 
@@ -24,7 +24,7 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-;; Author: Dragan Ivanovic <idragan(at)mac(dot)com>
+;; Author: Dragan Ivanović <idragan(at)mac(dot)com>
 
 ;; Keywords: prolog flycheck swi
 
@@ -144,7 +144,8 @@ Additional arguments are CHECKER and BUFFER."
 	;; Append to the result
 	(setq result
 	      (append result
-		      (list (flycheck-error-new :filename file-name
+		      (list (flycheck-error-new :filename (and file-name
+							       (file-name-nondirectory file-name))
 						:line line-number
 						:column column-number
 						:message message
@@ -156,7 +157,7 @@ Additional arguments are CHECKER and BUFFER."
 ;;###autoload
 (flycheck-define-checker
  prolog
- "A Prolog Syntax Checker using SWI Prolog Compiler."
+ "A Prolog Syntax Checker using SWI Prolog."
  :command ("swipl" "-q" "-t" "halt" "-s" source)
  :error-parser flycheck-swi-prolog-parse-messages
  :modes prolog-mode)
